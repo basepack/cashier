@@ -235,7 +235,11 @@ class SubscriptionBuilder
         }
 
         if ($token) {
-            $this->owner->updateCard($token);
+	        if (preg_match("/^src_(.*)/i", $token) > 0) {
+		        $this->owner->updateSepa($token);
+	        } else {
+		        $this->owner->updateCard($token);
+	        }
         }
 
         return $customer;
